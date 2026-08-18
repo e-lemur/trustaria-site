@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>From Attested to Demonstrable — Draft v4</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@page {
+  size: A4;
+  margin: 20mm 20mm 18mm 20mm;
+  @bottom-center {
+    content: "Draft Research Note · Continuous, Verifiable Evidence · Page " counter(page) " of " counter(pages);
+    font-family: 'Inter', sans-serif; font-size: 7.5pt; color: #8a734a; letter-spacing: .3px;
+  }
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  color: #1c2433;
+  background: #fbfaf6;
+  font-size: 10.5pt;
+  line-height: 1.62;
+  font-weight: 400;
+}
+.serif { font-family: 'Cormorant Garamond', Georgia, serif; }
+.mono { font-family: 'JetBrains Mono', monospace; }
+
+.head { display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #c8a96a; padding-bottom: 10px; }
+.brand { display: flex; align-items: center; gap: 10px; }
+.mark {
+  width: 30px; height: 30px; border-radius: 6px;
+  background: linear-gradient(135deg, #c8a96a, #a9884f);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-weight: 700; font-size: 16px;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+.brand .name { font-size: 16px; font-weight: 600; letter-spacing: .4px; color: #14203a; }
+.brand .sub { font-size: 7.5px; color: #6b7688; letter-spacing: 2.2px; text-transform: uppercase; margin-top: 1px; }
+.head .right { text-align: right; font-size: 8pt; color: #6b7688; line-height: 1.5; }
+
+.meta { margin-top: 16px; font-size: 9.5pt; line-height: 1.7; }
+.meta .row { display: flex; }
+.meta .lbl { width: 74px; color: #8a734a; font-weight: 600; text-transform: uppercase; letter-spacing: .6px; font-size: 8pt; padding-top: 2px; }
+.meta .val { flex: 1; }
+
+h1.title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 22pt; font-weight: 600; color: #14203a;
+  line-height: 1.2; margin: 20px 0 4px;
+}
+.subtitle { font-size: 10pt; color: #55627a; font-weight: 300; margin-bottom: 6px; }
+
+h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 15pt; font-weight: 600; color: #14203a;
+  margin: 20px 0 6px; padding-bottom: 4px;
+  border-bottom: 1px solid #e3dcc9;
+}
+h2 .num { color: #c8a96a; font-size: 13pt; margin-right: 8px; }
+h3 { font-size: 10.5pt; font-weight: 600; color: #1c2433; margin: 12px 0 3px; }
+
+p { margin: 6px 0; }
+strong { font-weight: 600; color: #14203a; }
+em { color: #3a4256; }
+
+ul { margin: 6px 0 6px 4px; }
+li { margin: 4px 0 4px 16px; padding-left: 4px; }
+
+.lead { font-size: 11pt; color: #2a3346; }
+
+.callout {
+  background: #f3eede; border-left: 3px solid #c8a96a;
+  padding: 10px 14px; margin: 12px 0; border-radius: 0 6px 6px 0;
+  font-size: 10pt; line-height: 1.6;
+}
+.callout .k { display: block; font-size: 7.5pt; letter-spacing: 2px; text-transform: uppercase; color: #8a734a; font-weight: 600; margin-bottom: 3px; }
+
+.rec { display: flex; gap: 10px; margin: 9px 0; }
+.rec .n {
+  flex: 0 0 26px; height: 26px; border-radius: 50%;
+  background: #14203a; color: #e0c98f; font-family: 'Cormorant Garamond', serif;
+  font-weight: 600; font-size: 13px; display: flex; align-items: center; justify-content: center;
+}
+.rec .t { flex: 1; }
+.rec .t b { color: #14203a; }
+
+.quote {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic; font-size: 13pt; color: #6b5626; border-left: 2px solid #c8a96a; padding-left: 14px; margin: 12px 0;
+  line-height: 1.4;
+}
+
+.tbl { width: 100%; border-collapse: collapse; margin: 8px 0; font-size: 9pt; }
+.tbl th { text-align: left; background: #14203a; color: #e0c98f; font-weight: 600; padding: 6px 8px; font-size: 8pt; letter-spacing: .4px; text-transform: uppercase; }
+.tbl td { padding: 6px 8px; border-bottom: 1px solid #e3dcc9; vertical-align: top; }
+.tbl tr:nth-child(even) td { background: #f6f2e7; }
+
+.boxed { background: #fff; border: 1px solid #e3dcc9; padding: 10px 14px; margin: 12px 0; border-radius: 6px; }
+.boxed .k { display: block; font-size: 7.5pt; letter-spacing: 2px; text-transform: uppercase; color: #8a734a; font-weight: 600; margin-bottom: 4px; }
+
+.disc { margin-top: 22px; padding-top: 12px; border-top: 1px solid #e3dcc9; font-size: 8.5pt; color: #6b7688; line-height: 1.55; }
+.sig { margin-top: 20px; font-size: 10pt; }
+.sig .nm { font-family: 'Cormorant Garamond', serif; font-size: 14pt; color: #14203a; }
+
+.avoidbreak { break-inside: avoid; }
+</style>
+</head>
+<body>
+
+<div class="head">
+  <div class="brand">
+    <div>
+      <div class="name">Research Note</div>
+      <div class="sub">Vendor-neutral contribution</div>
+    </div>
+  </div>
+  <div class="right">
+    Draft Research Note v4 – for discussion<br>
+    Prepared as a vendor-neutral contribution
+  </div>
+</div>
+
+<div class="meta">
+  <div class="row"><div class="lbl">Proposed for</div><div class="val">STO Foundation – Fund Finance / Digital-Asset Assurance discussion</div></div>
+  <div class="row"><div class="lbl">Working title</div><div class="val"><em>Continuous, Verifiable, Re-runnable Evidence: a common model for digital-asset controls</em></div></div>
+  <div class="row"><div class="lbl">Status</div><div class="val">Draft v4 for review before publication – tight and scope-bound</div></div>
+  <div class="row"><div class="lbl">Prepared at the invitation of</div><div class="val">Randy Goldberg, President, STO Foundation</div></div>
+  <div class="row"><div class="lbl">Author</div><div class="val">Rajaona Nirinasoa, contributing on a vendor-neutral basis</div></div>
+</div>
+
+<div class="callout">
+  <span class="k">How to read this note</span>
+  This draft is shaped around the question Randy raised: <em>can the industry move from periodic attestations to a shared model of continuous, verifiable and re-runnable evidence?</em> It is intentionally vendor-neutral: methods and examples are described generically, and any company – infrastructure provider, custodian, issuer, auditor or supervisor – can test them against its own operations.
+</div>
+
+<h1 class="title">From attested to demonstrable: a common model for continuous control evidence in digital assets</h1>
+<p class="subtitle">A vendor-neutral draft giving participants a shared vocabulary, two worked examples, and a set of open questions – not a product pitch.</p>
+
+<h2><span class="num">1</span>Purpose of this note</h2>
+<p>This draft gives an industry discussion a <strong>common vocabulary</strong> and a concrete, testable model. It sets out (i) the distinction between <em>status</em> and <em>demonstrable evidence</em>; (ii) the minimum records needed to make a control reconstructable; (iii) a mapping of representative MiCA and DORA obligations to that model; (iv) two worked examples; and (v) explicit unresolved questions for the next discussion.</p>
+<p>It is written to be <strong>challenged and improved</strong> by issuers, custodians, compliance specialists and infrastructure providers – the same mix that would make a subsequent webinar and, if useful, a working group productive. The note anchors a live discussion: each section feeds a concrete question a panel can test against real operating examples, without descending into product pitches.</p>
+
+<h2><span class="num">2</span>The core distinction: status versus demonstrable evidence</h2>
+<p class="lead">Most compliance frameworks answer <em>"does the entity have the control?"</em> The harder and more useful question is <em>"can the entity show the control held – continuously – and can someone independent re-derive that later?"</em> These are different problems, and the gap between them is where most operational failures live.</p>
+<div class="callout">
+  <span class="k">The distinction in one line</span>
+  A point-in-time report is a photograph. Full backing, segregation, redemption at par, effective sanctions screening – these are continuous claims. Assurance that relies only on photographs cannot see the intervals between them, and it is in those intervals that reserves drift, segregation lapses and controls quietly stop firing.
+</div>
+<p class="quote">The goal is evidence that survives being challenged – not evidence that is merely produced.</p>
+
+<h2><span class="num">3</span>Three properties that make evidence hold</h2>
+<p>Three properties separate evidence that withstands scrutiny from evidence that does not. They are technology-agnostic; several methods can deliver them.</p>
+<h3>Integrity – the evidence cannot be silently altered</h3>
+<p>The inputs behind a claim (balances, reserve composition, custody statements, reconciliation and screening records) and the resulting conclusion should be bound together so that any later change is detectable.</p>
+<h3>Reproducibility – a third party can re-derive the same result</h3>
+<p>A claim should carry enough of a fixed, versioned method that an independent party can take the same inputs and reach the <em>identical</em> conclusion, off the claiming party's own infrastructure.</p>
+<h3>Continuity – the gaps between checkpoints are addressed</h3>
+<p>Where feasible, evidence should be <em>event-anchored</em> as well as periodic – sealing a record whenever a material state change occurs – so a continuous claim is supported by continuous evidence.</p>
+
+<h2><span class="num">4</span>Minimum records to make a control demonstrable</h2>
+<p>For any given control, the note proposes a short, consistent evidence unit:</p>
+<ul>
+  <li><strong>Inputs:</strong> the specific data the control acted on (e.g. reserve holdings, wallet balances, the transaction set screened), captured as a canonical, hashable record.</li>
+  <li><strong>Method &amp; version:</strong> the fixed rule or procedure applied, with a version identifier.</li>
+  <li><strong>Result:</strong> the conclusion reached (pass / exception / value), bound to the inputs and method.</li>
+  <li><strong>Seal:</strong> a tamper-evident binding of the above, so undetected later alteration is not possible.</li>
+  <li><strong>Timestamp &amp; owner:</strong> when it was produced and the accountable control owner.</li>
+</ul>
+
+<h2><span class="num">5</span>Worked examples</h2>
+
+<p class="lead">The model is best tested against two very different controls: an NAV calculation and a custody segregation check. Both are familiar to STO Foundation participants, and both show where status reporting stops and demonstrable evidence begins.</p>
+
+<h3>Example A: a tokenised fund NAV</h3>
+
+<p>To make the model concrete, take a tokenised money-market fund whose NAV must be reconstructed six months later.</p>
+<div class="callout">
+  <span class="k">The control</span>
+  Daily NAV publication for investors and regulator.
+</div>
+<table class="tbl">
+  <tr><th>Evidence unit</th><th>Example value</th></tr>
+  <tr><td><strong>Inputs</strong></td><td>Custodian statement of T-bill holdings (€9,950,000); 100,000 tokens issued; €50,000 accrued fees.</td></tr>
+  <tr><td><strong>Method &amp; version</strong></td><td>NAV calculation v2.3: (T-bill holdings − accrued fees) / tokens issued.</td></tr>
+  <tr><td><strong>Result</strong></td><td>€99.00 per token.</td></tr>
+  <tr><td><strong>Seal</strong></td><td>A hash of the canonical input set and result, bound to a timestamp.</td></tr>
+  <tr><td><strong>Timestamp &amp; owner</strong></td><td>2026-08-10T16:00:00Z; fund accountant, the fund's depositary reconciliation.</td></tr>
+</table>
+<p>Six months later, a regulator can take the same inputs (retrieved from the custodian and on-chain supply) and re-run the same NAV v2.3 formula. If the result is €99.00, the evidence holds. If the inputs do not match, or the result differs without explanation, the problem is visible immediately.</p>
+<p>The seal does not prove that the T-bills physically exist or are worth €9.95m; custody and valuation remain the custodian's and auditor's responsibility. The seal proves that the published NAV was derived exactly from those specific inputs, with that specific formula, at that specific time, by that accountable party.</p>
+
+<h3>Example B: client-fund segregation at a 30-person French CASP</h3>
+
+<p>Now take a newly authorised CASP in France with around thirty staff. On 12 March it must show that client assets were segregated from proprietary assets at the close of business. Six months later, a supervisor asks for the proof.</p>
+<div class="callout">
+  <span class="k">The control</span>
+  Daily sign-off that client fiat and crypto balances are not commingled with the firm’s own funds.
+</div>
+<table class="tbl">
+  <tr><th>Evidence unit</th><th>Example value</th></tr>
+  <tr><td><strong>Inputs</strong></td><td>Custodian statement for the EUR omnibus account; wallet snapshot of client crypto wallets at 18:00 UTC; internal proprietary balance from the accounting system.</td></tr>
+  <tr><td><strong>Method &amp; version</strong></td><td>Segregation reconciliation v1.7: compare custodian + on-chain client totals to proprietary ledger, flag any overlap.</td></tr>
+  <tr><td><strong>Result</strong></td><td>No overlap detected; client and proprietary balances are separately identified.</td></tr>
+  <tr><td><strong>Seal</strong></td><td>Hash of the three inputs, the signed reconciliation export and the result, bound to a timestamp.</td></tr>
+  <tr><td><strong>Timestamp &amp; owner</strong></td><td>2026-03-12T18:47:00Z; signed by the CFO and countersigned by the MLRO.</td></tr>
+</table>
+<p>Reconstructed six months later, the control stands if the custodian statement, the wallet snapshot, the ledger and the signatures still produce the same hash and the same conclusion. If the reconciliation export is missing, or if the wallet snapshot was taken at 19:00 instead of 18:00, the gap is visible. The seal cannot invent the missing evidence, but it makes the absence explicit.</p>
+<p>In practice, this is where most firms currently live. The policy exists, the spreadsheets exist, the email sign-off exists. What is missing is a single, versioned record that binds the inputs, the method, the result and the accountable owner to a single point in time.</p>
+<div class="boxed">
+  <span class="k">What this example does not prove</span>
+  The seal does not prove the custodian actually holds the assets, or that the wallet belongs to the firm and not a third party. Those are custody and legal questions for the auditor and the supervisor. The seal only proves that, on 12 March at 18:47 UTC, the firm ran segregation reconciliation v1.7 on those specific inputs and reached that specific conclusion.
+</div>
+
+<h2><span class="num">6</span>Mapping representative MiCA &amp; DORA obligations</h2>
+<p>The model applies to obligations the industry already recognises. Illustrative, not exhaustive:</p>
+<table class="tbl">
+  <tr><th>Obligation (representative)</th><th>Status view</th><th>Demonstrable / re-runnable view</th></tr>
+  <tr><td>Reserve backing &amp; segregation (MiCA, stablecoins)</td><td>Month-end attestation of full backing</td><td>Sealed reconciliation inputs replayable for any date in the period</td></tr>
+  <tr><td>Custody &amp; wallet governance</td><td>Policy + sampling-date checks</td><td>Segregation reconstructable for every day, not only sampling dates</td></tr>
+  <tr><td>AML/CFT &amp; sanctions screening</td><td>Policy document describing the control</td><td>Re-runnable record that the control fired on the relevant transactions at the relevant time</td></tr>
+  <tr><td>ICT &amp; third-party risk (DORA)</td><td>Register + point-in-time assessment</td><td>Tamper-evident evidence that resilience controls operated across the interval</td></tr>
+  <tr><td>Incident handling (DORA)</td><td>Post-hoc narrative</td><td>Sealed, timestamped trail a reviewer can replay after the fact</td></tr>
+</table>
+
+<h2><span class="num">7</span>The six-month test</h2>
+<p>A single question operationalises the whole model, and could frame the webinar discussion:</p>
+<p class="quote">Six months from now, if a regulator, auditor or LP asks about one specific control on one specific past date, can the entity reconstruct – from sealed inputs and a versioned method – that it operated as claimed, off its own say-so?</p>
+<p>If the answer is "we would point to the policy" or "we would trust the month-end statement," the control is a status, not demonstrable evidence.</p>
+
+<h2><span class="num">8</span>Unresolved questions for the group</h2>
+<p>This note deliberately leaves open questions that a webinar panel of issuers, custodians, compliance specialists and infrastructure providers should test against practice:</p>
+<ul>
+  <li><strong>Source of inputs:</strong> who is an acceptable source for the custodian statement, NAV price feed or wallet balance? Is a data feed from the operator enough, or should it come from an independent third party?</li>
+  <li><strong>Standardisation vs. flexibility:</strong> should the industry agree a single minimum evidence unit, or should each framework keep its own format?</li>
+  <li><strong>Frequency:</strong> does every control need event-anchored evidence, or is a periodic snapshot sufficient for low-risk controls?</li>
+  <li><strong>Confidentiality vs. verifiability:</strong> how much of the sealed input can be disclosed to an auditor without exposing sensitive positions?</li>
+  <li><strong>Liability boundary:</strong> what does a seal prove, and what does it explicitly not prove? Does the market need a standard disclaimer?</li>
+</ul>
+
+<h2><span class="num">9</span>Suggested next steps</h2>
+<div class="rec"><div class="n">1</div><div class="t"><b>Publish this note after one review round,</b> rather than expand it into a full framework before the discussion has started.</div></div>
+<div class="rec"><div class="n">2</div><div class="t"><b>Hold a webinar</b> with an issuer, a custodian, a compliance specialist and an infrastructure provider to stress the open questions against real operating environments.</div></div>
+<div class="rec"><div class="n">3</div><div class="t"><b>Decide after the webinar</b> whether a working group is warranted, and on what scope.</div></div>
+
+<h2><span class="num">10</span>Scope and limitations</h2>
+<p>This note is deliberate about what the described techniques do and do not establish. Cryptographic sealing and reproducibility prove <strong>integrity, reproducibility and authenticity of a stated evidence set and method</strong> – that specific inputs produced a specific result, and that neither was altered afterwards. They do <strong>not</strong> establish the legal truth of the underlying facts, the physical existence or valuation of an asset, or the regulatory sufficiency of a control. Those remain matters for supervisors, qualified auditors and applicable law. In short: <em>these methods prove integrity, not legal truth</em>.</p>
+
+<div class="sig">
+  <div class="nm">Rajaona Nirinasoa</div>
+  <div style="color:#55627a;">Contributing on a vendor-neutral basis</div>
+</div>
+
+<div class="disc">
+  This is a draft research note prepared for discussion within the STO Foundation community. It reflects the author's views on evidence and assurance methodology and does not constitute legal, regulatory, accounting or investment advice. The framework is intended to remain vendor-neutral; references to cryptographic methods describe a general approach, not a specific product. Nothing herein asserts any client relationship or engagement.
+</div>
+
+</body>
+</html>
