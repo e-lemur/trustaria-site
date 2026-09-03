@@ -59,7 +59,8 @@
   header{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);background:rgba(8,18,33,0.72);border-bottom:1px solid var(--line)}
   .nav{display:flex;align-items:center;justify-content:space-between;height:66px}
   .brand{display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;letter-spacing:3px;font-weight:700;font-size:15px}
-  .brand .dot{width:12px;height:12px;background:var(--cyan);transform:rotate(45deg);box-shadow:0 0 16px rgba(66,217,154,0.6)}
+  .brand .brand-logo{display:flex;align-items:center}
+  .brand .brand-logo svg{width:28px;height:28px;display:block}
   .nav-links{display:flex;align-items:center;gap:30px}
   .nav-links a{color:var(--text-mut);text-decoration:none;font-size:14px;transition:color .2s}
   .nav-links a:hover{color:var(--text)}
@@ -171,7 +172,7 @@
 
 <header>
   <div class="wrap nav">
-    <div class="brand"><span class="dot"></span> TRUSTBLOCKS</div>
+    <div class="brand"><span class="brand-logo"><svg viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="TrustBlocks logo"><rect x="2" y="2" width="3" height="24" fill="#d8b878" rx="0.5"/><rect x="8" y="2" width="12" height="5" fill="#d8b878" rx="0.5"/><rect x="8" y="10" width="18" height="5" fill="#d8b878" rx="0.5"/><rect x="8" y="18" width="24" height="5" fill="#d8b878" rx="0.5"/></svg></span> TRUSTBLOCKS</div>
     <nav class="nav-links">
       <a href="#shift">The shift</a>
       <a href="#deliver">What ARIA delivers</a>
@@ -403,7 +404,7 @@
 <footer>
   <div class="wrap">
     <div class="foot">
-      <div class="brand"><span class="dot"></span> TRUSTBLOCKS</div>
+      <div class="brand"><span class="brand-logo"><svg viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="TrustBlocks logo"><rect x="2" y="2" width="3" height="24" fill="#d8b878" rx="0.5"/><rect x="8" y="2" width="12" height="5" fill="#d8b878" rx="0.5"/><rect x="8" y="10" width="18" height="5" fill="#d8b878" rx="0.5"/><rect x="8" y="18" width="24" height="5" fill="#d8b878" rx="0.5"/></svg></span> TRUSTBLOCKS</div>
       <div class="badges">
         <span>DETERMINISTIC</span><span>·</span><span>REPRODUCIBLE</span><span>·</span><span>AUDITABLE</span>
       </div>
