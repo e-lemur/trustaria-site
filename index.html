@@ -59,7 +59,8 @@
   header{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);background:rgba(8,18,33,0.72);border-bottom:1px solid var(--line)}
   .nav{display:flex;align-items:center;justify-content:space-between;height:66px}
   .brand{display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;letter-spacing:3px;font-weight:700;font-size:15px}
-  .brand .dot{width:12px;height:12px;background:var(--cyan);transform:rotate(45deg);box-shadow:0 0 16px rgba(66,217,154,0.6)}
+  .brand .brand-logo{display:flex;align-items:center}
+  .brand .brand-logo svg{width:28px;height:28px;display:block}
   .nav-links{display:flex;align-items:center;gap:30px}
   .nav-links a{color:var(--text-mut);text-decoration:none;font-size:14px;transition:color .2s}
   .nav-links a:hover{color:var(--text)}
@@ -171,7 +172,7 @@
 
 <header>
   <div class="wrap nav">
-    <div class="brand"><span class="dot"></span> TRUSTBLOCKS</div>
+    <div class="brand"><span class="brand-logo"><svg viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="TrustBlocks logo"><rect x="2" y="2" width="3" height="24" fill="#d8b878" rx="0.5"/><rect x="8" y="2" width="12" height="5" fill="#d8b878" rx="0.5"/><rect x="8" y="10" width="18" height="5" fill="#d8b878" rx="0.5"/><rect x="8" y="18" width="24" height="5" fill="#d8b878" rx="0.5"/></svg></span> TRUSTBLOCKS</div>
     <nav class="nav-links">
       <a href="#shift">The shift</a>
       <a href="#deliver">What ARIA delivers</a>
@@ -375,7 +376,27 @@
     <div class="eyebrow">Get In Touch</div>
     <h2>Evidence, <span class="accent">not opinion.</span></h2>
     <p class="lead">Built for CASPs, banks, family offices and RWA issuers who need to prove their controls hold — continuously, and under challenge.</p>
-    <a class="maillink" href="mailto:contact@trustaria.io?subject=ARIA%20Flash%20Diagnostic%20—%20Request&amp;body=Entity%3A%20%0AApplicable%20framework%20(MiCA%2FDORA%2FVARA%2FSAMA%2FMAS%2FEU%20AI%20Act)%3A%20%0ABrief%20context%3A%20">contact@trustaria.io →</a>
+    <a class="maillink" href="mailto:rajaona@trustaria.io?subject=ARIA%20Flash%20Diagnostic%20—%20Request&amp;body=Entity%3A%20%0AApplicable%20framework%20(MiCA%2FDORA%2FVARA%2FSAMA%2FMAS%2FEU%20AI%20Act)%3A%20%0ABrief%20context%3A%20">rajaona@trustaria.io →</a>
+  </div>
+</section>
+
+<!-- DATA & AI TRANSPARENCY -->
+<section id="data">
+  <div class="wrap">
+    <div class="eyebrow">Data &amp; AI Transparency</div>
+    <h2>Europe-hosted. Mission-limited. <span class="accent">No hidden AI.</span></h2>
+    <p class="lead">We disclose only what prospects and supervisors need to know; the detailed DPA and infrastructure map are shared under contract on request.</p>
+
+    <div class="grid cols-2" style="margin-top:40px">
+      <div class="cell">
+        <div class="k">Hosting &amp; deletion</div>
+        <p>Client data is processed and stored in Europe. Routine transfers outside the EU do not occur. Data is deleted at the end of the mission, except where the law requires otherwise.</p>
+      </div>
+      <div class="cell">
+        <div class="k">AI use &amp; model training</div>
+        <p>TrustBlocks produces proofs by deterministic computation, not generative AI. Client data is never used to train or fine-tune any model. Any AI-assisted interface feature is clearly labelled.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -383,7 +404,7 @@
 <footer>
   <div class="wrap">
     <div class="foot">
-      <div class="brand"><span class="dot"></span> TRUSTBLOCKS</div>
+      <div class="brand"><span class="brand-logo"><svg viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="TrustBlocks logo"><rect x="2" y="2" width="3" height="24" fill="#d8b878" rx="0.5"/><rect x="8" y="2" width="12" height="5" fill="#d8b878" rx="0.5"/><rect x="8" y="10" width="18" height="5" fill="#d8b878" rx="0.5"/><rect x="8" y="18" width="24" height="5" fill="#d8b878" rx="0.5"/></svg></span> TRUSTBLOCKS</div>
       <div class="badges">
         <span>DETERMINISTIC</span><span>·</span><span>REPRODUCIBLE</span><span>·</span><span>AUDITABLE</span>
       </div>
