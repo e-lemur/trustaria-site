@@ -344,6 +344,38 @@
   </div>
 </section>
 
+<!-- LIVE API -->
+<section id="live-api">
+  <div class="wrap">
+    <div class="eyebrow">Live API</div>
+    <h2>See the engine respond.</h2>
+    <p class="lead">The new backend is deployed and wired in. Run a deterministic preview directly from this page. <b>These are demo calls, not an audit engagement or a compliance opinion.</b></p>
+
+    <div class="grid cols-3" style="margin-top:32px">
+      <div class="cell">
+        <div class="k">Health</div>
+        <button class="btn" onclick="apiCall('health')">Check backend health</button>
+      </div>
+      <div class="cell">
+        <div class="k">Jurisdictions</div>
+        <button class="btn btn-ghost" onclick="apiCall('jurisdictions')">List MiCA / VARA / SAMA / MAS / FINMA / SEC / FINRA</button>
+      </div>
+      <div class="cell">
+        <div class="k">Demo report</div>
+        <button class="btn btn-ghost" onclick="demoReport()">Create a sealed quick audit</button>
+      </div>
+    </div>
+
+    <div style="margin-top:22px;display:flex;flex-wrap:wrap;gap:12px">
+      <button class="btn btn-ghost" onclick="demoDecay()">Proof decay</button>
+      <button class="btn btn-ghost" onclick="demoDiff()">Diff vs. current report</button>
+      <a class="btn btn-ghost" id="exportLink" style="display:none" href="#" target="_blank" rel="noopener">Download export pack (.tar.gz)</a>
+    </div>
+
+    <pre id="apiOut" class="hashbox" style="margin-top:26px;white-space:pre-wrap;overflow-wrap:anywhere;min-height:96px;color:var(--text-mut)">Click a button above to call the live backend.</pre>
+  </div>
+</section>
+
 <!-- FAQ -->
 <section id="faq">
   <div class="wrap">
@@ -415,6 +447,98 @@
     </p>
   </div>
 </footer>
+
+<script>
+const API = 'https://trustblocks.onrender.com';
+const out = document.getElementById('apiOut');
+const reports = [];
+
+async function callApi(path, opts = {}) {
+  out.textContent = 'Calling ' + path + '…';
+  try {
+    const res = await fetch(API + path, opts);
+    if (!res.ok) {
+      const text = await res.text();
+      out.textContent = 'HTTP ' + res.status + '\n' + text.slice(0, 1200);
+      return null;
+    }
+    const ct = res.headers.get('content-type') || '';
+    if (ct.includes('application/json')) {
+      const data = await res.json();
+      out.textContent = JSON.stringify(data, null, 2).slice(0, 6000);
+      return data;
+    }
+    out.textContent = 'OK ' + res.status + ' — ' + ct;
+    return res;
+  } catch (err) {
+    out.textContent = 'Error: ' + err.message;
+    return null;
+  }
+}
+
+function apiCall(name) {
+  if (name === 'health') return callApi('/api/health');
+  if (name === 'jurisdictions') return callApi('/api/jurisdictions');
+}
+
+function pastPayload() {
+  return {
+    projectName: 'Demo Exchange (Past)',
+    projectDescription: 'A demo exchange used to show proof decay on an older reference period.',
+    contractType: 'exchange',
+    jurisdiction: 'EU_MiCA',
+    referencePeriod: { start: '2025-01-01', end: '2025-03-31' },
+    answers: {}
+  };
+}
+
+function currentPayload() {
+  return {
+    projectName: 'Demo Exchange (Current)',
+    projectDescription: 'A demo exchange used to show a current reference period.',
+    contractType: 'exchange',
+    jurisdiction: 'EU_MiCA',
+    referencePeriod: { start: '2026-07-01', end: '2026-07-31' },
+    answers: {}
+  };
+}
+
+async function demoReport() {
+  const data = await callApi('/api/quick-audit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(pastPayload())
+  });
+  if (data && data.id) {
+    reports[0] = data.id;
+    out.textContent = 'Created report ' + data.id + '\n\n' + JSON.stringify(data, null, 2).slice(0, 6000);
+  }
+}
+
+async function demoDecay() {
+  if (!reports[0]) await demoReport();
+  if (reports[0]) await callApi('/api/reports/' + reports[0] + '/decay');
+}
+
+async function demoDiff() {
+  if (!reports[0]) await demoReport();
+  if (!reports[1]) {
+    const r = await callApi('/api/quick-audit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(currentPayload())
+    });
+    if (r && r.id) reports[1] = r.id;
+  }
+  if (reports[0] && reports[1]) {
+    const data = await callApi('/api/reports/' + reports[0] + '/diff/' + reports[1]);
+    const link = document.getElementById('exportLink');
+    link.href = API + '/api/reports/' + reports[0] + '/export';
+    link.style.display = 'inline-flex';
+    return data;
+  }
+}
+</script>
 
 </body>
 </html>
