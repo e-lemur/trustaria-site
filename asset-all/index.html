@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TrustBlocks — RWA Vendors Showcase</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --navy-900:#081221;
+    --navy-800:#0b1a2e;
+    --navy-700:#0f2440;
+    --navy-600:#14304f;
+    --line:rgba(120,160,210,0.16);
+    --cyan:#42d99a;
+    --cyan-soft:#8bf0c6;
+    --gold:#d8b878;
+    --gold-soft:#f0d9a8;
+    --red:#ff6b7a;
+    --text:#eef4fb;
+    --text-mut:#9fb2c9;
+    --text-dim:#6f8299;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    background:
+      radial-gradient(1200px 700px at 78% -8%, rgba(66,217,154,0.10), transparent 55%),
+      radial-gradient(1000px 600px at 8% 12%, rgba(216,184,120,0.08), transparent 50%),
+      linear-gradient(180deg,var(--navy-900) 0%, var(--navy-800) 45%, var(--navy-900) 100%);
+    background-attachment:fixed;
+    color:var(--text);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+  .serif{font-family:'Fraunces',Georgia,serif;font-weight:500;letter-spacing:-0.01em}
+  .mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:3px;color:var(--cyan);text-transform:uppercase;display:flex;align-items:center;gap:14px}
+  .eyebrow::before{content:'';width:34px;height:1px;background:var(--cyan);display:inline-block}
+  .accent{color:var(--cyan)}
+  .gold{color:var(--gold)}
+
+  header{border-bottom:1px solid var(--line);background:rgba(8,18,33,0.75);backdrop-filter:blur(10px);position:sticky;top:0;z-index:50}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;letter-spacing:3px;font-weight:700;font-size:15px;color:var(--text)}
+  .brand svg{width:28px;height:28px;display:block}
+  header a{color:var(--text-mut);text-decoration:none;font-size:14px;margin-left:28px;transition:.2s}
+  header a:hover{color:var(--cyan)}
+
+  section{padding:90px 0;border-bottom:1px solid var(--line)}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:clamp(44px,8vw,78px);line-height:1.02;letter-spacing:-0.02em;margin:22px 0}
+  h1 .accent{font-style:italic}
+  h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:clamp(30px,4.6vw,46px);line-height:1.08;letter-spacing:-0.01em;margin:18px 0}
+  h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:24px;margin-bottom:8px;color:var(--text)}
+  .lead{font-size:clamp(17px,2.1vw,20px);color:var(--text-mut);max-width:670px}
+  .lead b{color:var(--text);font-weight:600}
+  p{color:var(--text-mut)}
+
+  .hero{padding-top:110px}
+  .pill-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:36px}
+  .pill{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text);border:1px solid var(--line);background:rgba(20,48,79,0.4);padding:9px 14px;border-radius:999px;display:flex;align-items:center;gap:8px}
+  .pill .g{width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:40px}
+  .btn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#4ee3a6,#1fae76);color:#032015;font-weight:700;font-size:14px;padding:12px 22px;border-radius:9px;text-decoration:none;transition:.2s;box-shadow:0 6px 22px rgba(66,217,154,0.30)}
+  .btn:hover{transform:translateY(-1px);box-shadow:0 10px 30px rgba(66,217,154,0.45)}
+  .btn-gold{background:linear-gradient(135deg,var(--gold),#b8934e);color:#1a1205;box-shadow:0 6px 22px rgba(216,184,120,0.25)}
+  .btn-gold:hover{box-shadow:0 10px 30px rgba(216,184,120,0.40)}
+
+  .grid{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-top:44px}
+  .grid.cols-2{grid-template-columns:1fr 1fr}
+  .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+  .cell{background:var(--navy-800);padding:34px 30px}
+  .cell .k{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:2px;color:var(--cyan);text-transform:uppercase;margin-bottom:14px}
+  .cell p{font-size:15px;line-height:1.65}
+
+  .layers{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-top:44px}
+  .layer{display:flex;align-items:center;gap:18px;padding:24px 28px;background:var(--navy-800);border-bottom:1px solid var(--line)}
+  .layer:last-child{border-bottom:none}
+  .layer .num{font-family:'JetBrains Mono',monospace;color:var(--cyan);font-size:13px;min-width:34px}
+  .layer .d{width:9px;height:9px;background:var(--cyan);transform:rotate(45deg);flex-shrink:0}
+  .layer .txt{flex:1}
+  .layer .txt strong{font-family:'Fraunces',Georgia,serif;font-size:20px;color:var(--text)}
+  .layer .txt span{display:block;color:var(--text-dim);font-size:15px;margin-top:4px}
+
+  .offers{margin-top:44px}
+  .offer-group{margin-bottom:44px}
+  .offer-group h3{font-size:20px;color:var(--gold);letter-spacing:1px;text-transform:uppercase;font-family:'JetBrains Mono',monospace;margin-bottom:18px}
+  .offer-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  .offer-card{border:1px solid var(--line);border-radius:16px;background:var(--navy-800);padding:28px;position:relative;transition:.2s}
+  .offer-card:hover{border-color:rgba(66,217,154,0.5);transform:translateY(-2px)}
+  .offer-card.feat{border-color:rgba(216,184,120,0.6);background:linear-gradient(180deg,rgba(216,184,120,0.08),var(--navy-800))}
+  .offer-card .name{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:2px;color:var(--cyan);text-transform:uppercase}
+  .offer-card .price{font-family:'Fraunces',Georgia,serif;font-size:34px;color:var(--gold);margin:12px 0 4px}
+  .offer-card .price small{font-family:'Inter',sans-serif;font-size:14px;color:var(--text-dim)}
+  .offer-card .desc{font-size:14.5px;color:var(--text-mut);margin-top:10px;line-height:1.6}
+  .offer-card ul{list-style:none;margin-top:14px}
+  .offer-card li{font-size:13.5px;color:var(--text-mut);padding:5px 0 5px 22px;position:relative}
+  .offer-card li::before{content:'→';position:absolute;left:0;color:var(--cyan)}
+
+  .table-wrap{margin-top:36px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th,td{padding:14px 18px;text-align:left;border-bottom:1px solid var(--line)}
+  th{background:var(--navy-700);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--cyan);font-weight:500}
+  td{color:var(--text-mut)}
+  tr:last-child td{border-bottom:none}
+
+  .facts{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:40px}
+  .fact{border:1px solid var(--line);border-radius:12px;padding:22px;background:var(--navy-800)}
+  .fact .label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--cyan);text-transform:uppercase;margin-bottom:6px}
+  .fact .value{font-size:17px;color:var(--text)}
+
+  .cta-final{text-align:left}
+  .maillink{display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:18px;color:var(--text);text-decoration:none;border-bottom:1px solid var(--cyan);padding-bottom:8px;margin-top:10px}
+  .maillink:hover{color:var(--cyan)}
+  footer{padding:46px 0 60px;border-top:1px solid var(--line);margin-top:0}
+  .disclaimer{font-size:11.5px;line-height:1.7;color:var(--text-dim);max-width:980px;margin-top:24px}
+
+  @media(max-width:760px){
+    .nav{height:auto;min-height:68px;padding:14px 0;gap:12px;flex-wrap:wrap}
+    .brand{flex:0 0 auto;font-size:14px}
+    header nav{width:100%;display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:flex-start}
+    header a{margin-left:0;font-size:13px;white-space:nowrap}
+    .grid.cols-2,.grid.cols-3,.offer-cards,.facts{grid-template-columns:1fr}
+    .offer-card .price{font-size:28px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="brand">
+      <svg viewBox="0 0 32 28" fill="none" aria-label="TrustBlocks logo"><rect x="2" y="2" width="3" height="24" fill="#d8b878" rx="0.5"/><rect x="8" y="2" width="12" height="5" fill="#d8b878" rx="0.5"/><rect x="8" y="10" width="18" height="5" fill="#d8b878" rx="0.5"/><rect x="8" y="18" width="24" height="5" fill="#d8b878" rx="0.5"/></svg>
+      TRUSTBLOCKS
+    </div>
+    <nav>
+      <a href="#offers">All Offers</a>
+      <a href="#profile">Company Profile</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">RWA Vendors · STO Foundation Showcase</div>
+    <h1>The deterministic<br><span class="accent">proof-of-control</span> layer.</h1>
+    <p class="lead">TrustBlocks turns controls into sealed, re-runnable evidence for regulated digital-asset programmes. When a supervisor, investor or counterparty challenges your controls, <b>the proof exists by design</b>.</p>
+    <div class="pill-row">
+      <span class="pill"><span class="g"></span> same inputs → same result</span>
+      <span class="pill"><span class="g"></span> SHA-256 sealed</span>
+      <span class="pill"><span class="g"></span> 0% generative AI</span>
+      <span class="pill"><span class="g"></span> third-party verifiable</span>
+    </div>
+    <div class="hero-cta">
+      <a class="btn" href="mailto:trustenginia@gmail.com,rajaona@trustaria.io?subject=Control%20session%20request">Request a control session →</a>
+      <a class="btn btn-gold" href="#offers">See all offers</a>
+    </div>
+  </div>
+</section>
+
+<section id="shift">
+  <div class="wrap">
+    <div class="eyebrow">The Shift</div>
+    <h2>The bar moved from<br>“trust us” to <span class="accent">“show us.”</span></h2>
+    <p class="lead">A licence proves readiness on inspection day. Under MiCA, DORA, VARA, SAMA, MAS and the EU AI Act, continuous proof of controls is what matters. TrustBlocks produces that proof without replacing lawyers, auditors or supervisors.</p>
+    <div class="grid cols-3">
+      <div class="cell">
+        <div class="k">A grade you can defend</div>
+        <p>Four layers assessed, graded and severity-ranked — Systems, Structural, Institutional, Governance — so every finding is traceable to a control.</p>
+      </div>
+      <div class="cell">
+        <div class="k">Immutable audit trail</div>
+        <p>Every result is sealed with a cryptographic proof, tamper-resistant and auditable by any third party on demand.</p>
+      </div>
+      <div class="cell">
+        <div class="k">One assessment, many frameworks</div>
+        <p>Mapped across the regimes that apply to you, so a single pipeline answers several supervisors at once.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Assessment Architecture</div>
+    <h2>Four layers, one grade.</h2>
+    <div class="layers">
+      <div class="layer"><span class="num">01</span><span class="d"></span>
+        <div class="txt"><strong>Systems</strong> <span>Infrastructure, key management, resilience & operational integrity</span></div>
+      </div>
+      <div class="layer"><span class="num">02</span><span class="d"></span>
+        <div class="txt"><strong>Structural</strong> <span>Asset design, reserves, flows & token architecture</span></div>
+      </div>
+      <div class="layer"><span class="num">03</span><span class="d"></span>
+        <div class="txt"><strong>Institutional</strong> <span>Ownership, accountability, roles & segregation of duties</span></div>
+      </div>
+      <div class="layer"><span class="num">04</span><span class="d"></span>
+        <div class="txt"><strong>Governance</strong> <span>Policies, oversight, controls & evidence of execution</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="offers">
+  <div class="wrap">
+    <div class="eyebrow">Complete Offer Catalogue</div>
+    <h2>Every proof layer,<br>from starter to enterprise.</h2>
+    <p class="lead">All offers run on the same deterministic engine: same inputs, same rule, same version = same result. No generative AI in the proof path.</p>
+
+    <div class="offers">
+      <div class="offer-group">
+        <h3>Entry Points</h3>
+        <div class="offer-cards">
+          <div class="offer-card">
+            <div class="name">Control Gap Check</div>
+            <div class="price">Free <small>· 30 min</small></div>
+            <div class="desc">Identify a proof gap across 2–3 controls and map the next concrete step.</div>
+          </div>
+          <div class="offer-card feat">
+            <div class="name">Flash Diagnostic 48h</div>
+            <div class="price">€3,500 <small>· one entity / one framework</small></div>
+            <div class="desc">Turn one control into a sealed, replayable proof and get a board-ready report in 48 hours.</div>
+            <ul>
+              <li>Map MiCA, DORA, VARA, SAMA, MAS or EU AI Act to one finding</li>
+              <li>Find the gap before an auditor or attacker does</li>
+            </ul>
+          </div>
+          <div class="offer-card">
+            <div class="name">Smart Contract Birth Certificate</div>
+            <div class="price">€1,500–3,000 <small>· per contract</small></div>
+            <div class="desc">Seal the origin of a deployed contract: code, audit, compiler, deployer, date and chain state.</div>
+          </div>
+          <div class="offer-card">
+            <div class="name">TrustBlocks Verified Badge</div>
+            <div class="price">€500–3,000 <small>· /month</small></div>
+            <div class="desc">A public proof page on your site showing the control has been sealed and is independently verifiable.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="offer-group">
+        <h3>Governance Diagnostics</h3>
+        <div class="offer-cards">
+          <div class="offer-card">
+            <div class="name">Smart Contract Governance Diagnostic</div>
+            <div class="price">from €3,500</div>
+            <div class="desc">Does the declared governance match the on-chain reality? Ownership, upgrade paths, multisig policy, dependencies, emergency procedures.</div>
+          </div>
+          <div class="offer-card">
+            <div class="name">DAO Governance Diagnostic Flash</div>
+            <div class="price">from €3,500</div>
+            <div class="desc">Governance token, quorum, timelock, signers, treasury exposure, vote concentration and cost-of-attack vs TVL.</div>
+          </div>
+          <div class="offer-card">
+            <div class="name">Governance Multisig Evaluation</div>
+            <div class="price">from €3,500</div>
+            <div class="desc">A graded grid of multisig vulnerabilities: signers, thresholds, roles, segregation of duties, emergency levers.</div>
+          </div>
+          <div class="offer-card">
+            <div class="name">CASP Authorization Evidence Pack</div>
+            <div class="price">€10,000–15,000</div>
+            <div class="desc">Gather, version and seal your MiCA / DORA authorisation file so it can be replayed and defended.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="offer-group">
+        <h3>Growth & Pilots</h3>
+        <div class="offer-cards">
+          <div class="offer-card">
+            <div class="name">Risk Assessment + Data Room</div>
+            <div class="price">€25,000–50,000</div>
+            <div class="desc">A structured evaluation across the four pillars plus a secure data room (NDA, AES-256, EU-only, watermarking, certified deletion).</div>
+          </div>
+          <div class="offer-card">
+            <div class="name">RWA Proof Chain — Pilot</div>
+            <div class="price">€20,000–30,000</div>
+            <div class="desc">Chain the evidence of the four RWA transitions: issuance, NAV, collateral revaluation, transfer.</div>
+          </div>
+          <div class="offer-card">
+            <div class="name">TrustBlocks Inspector — Pilot</div>
+            <div class="price">€15,000–25,000</div>
+            <div class="desc">Deterministic pre-signature verification of EVM payloads: address substitution, amount changes, hidden upgradeAndCall, unlimited approvals.</div>
+          </div>
+          <div class="offer-card">
+            <div class="name">Monitoring</div>
+            <div class="price">€2,000–4,000 <small>· /month</small></div>
+            <div class="desc">Continuous proof monitoring, change detection and alert re-scoring for one control stream.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="offer-group">
+        <h3>Enterprise</h3>
+        <div class="offer-cards">
+          <div class="offer-card">
+            <div class="name">Enterprise Monitoring Multi-entities</div>
+            <div class="price">€100,000–300,000 <small>· /year</small></div>
+            <div class="desc">Monitor proof across multiple entities, jurisdictions and frameworks from a single dashboard.</div>
+          </div>
+          <div class="offer-card">
+            <div class="name">Implementation + Monitoring Package</div>
+            <div class="price">€300,000–1,000,000</div>
+            <div class="desc">Full institutional transformation: multi-entity scope, multi-framework mapping, recurring audits and remediation tracking.</div>
+          </div>
+          <div class="offer-card">
+            <div class="name">Third-party Security Connector Integration</div>
+            <div class="price">€40,000–70,000 <small>· setup</small></div>
+            <div class="desc">Seal outputs from Tenderly, Fireblocks, Forta, Ledger, Certora into a single TrustBlocks proof.</div>
+          </div>
+          <div class="offer-card">
+            <div class="name">Regulatory Watch + Remediation Tracker</div>
+            <div class="price">Scope-based</div>
+            <div class="desc">Continuous regulatory watch for MiCA, VARA, SAMA, AI Act, DORA with alerts and re-scored proof on change.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Jurisdiction Mapping</div>
+    <h2>Built for the regimes<br>that shape tokenized capital.</h2>
+    <div class="grid cols-3">
+      <div class="cell"><div class="k">European Union / EEA</div><p>MiCA, DORA, EU AI Act</p></div>
+      <div class="cell"><div class="k">United Arab Emirates</div><p>VARA</p></div>
+      <div class="cell"><div class="k">Saudi Arabia</div><p>SAMA</p></div>
+      <div class="cell"><div class="k">Singapore</div><p>MAS</p></div>
+      <div class="cell"><div class="k">Switzerland</div><p>DLT / FINMA guidance</p></div>
+      <div class="cell"><div class="k">Global delivery</div><p>EU-hosted processing, remote-first teams</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="data">
+  <div class="wrap">
+    <div class="eyebrow">Data & AI Transparency</div>
+    <h2>Europe-hosted. Mission-limited. <span class="accent">No hidden AI.</span></h2>
+    <p class="lead">Public disclosure stays minimal; detailed DPA and infrastructure maps are shared under contract on request.</p>
+    <div class="grid cols-2">
+      <div class="cell">
+        <div class="k">Hosting & deletion</div>
+        <p>Client data is processed and stored in Europe. Routine transfers outside the EU do not occur. Data is deleted at the end of the mission, except where the law requires otherwise.</p>
+      </div>
+      <div class="cell">
+        <div class="k">AI use & model training</div>
+        <p>TrustBlocks produces proofs by deterministic computation, not generative AI. Client data is never used to train or fine-tune any model. Any AI-assisted interface feature is clearly labelled.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="confidentiality">
+  <div class="wrap">
+    <div class="eyebrow">Non-Disclosure</div>
+    <h2>Confidentiality by <span class="accent">default.</span></h2>
+    <p class="lead">Every report, finding, proof piece and analysed fact stays the client's. It is not made public without prior written consent.</p>
+    <div class="grid cols-2">
+      <div class="cell">
+        <div class="k">Client-controlled disclosure</div>
+        <p>Reports, findings, proof and analysed information are confidential and are not made public. Any publication, reference to the client, use of the client's name or distribution of a result requires the client's prior written authorisation, except where required by applicable law or by a competent authority.</p>
+      </div>
+      <div class="cell">
+        <div class="k">No surprise exposure</div>
+        <p>If a diagnostic reveals a significant gap — an unexpected upgrade power, excessive rights concentration or other control weakness — TrustBlocks reports it to the client for decision and remediation. We do not publish it on our own initiative. Commercial references are handled under a separate, specific written agreement.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="profile">
+  <div class="wrap">
+    <div class="eyebrow">Company Profile</div>
+    <h2>TrustBlocks at a glance.</h2>
+    <div class="facts">
+      <div class="fact"><div class="label">Headquarters</div><div class="value">Paris, France</div></div>
+      <div class="fact"><div class="label">Company Size</div><div class="value">Boutique — core team + specialist partners</div></div>
+      <div class="fact"><div class="label">Regions Served</div><div class="value">Europe, Middle East, Asia-Pacific, North America</div></div>
+      <div class="fact"><div class="label">Languages</div><div class="value">English, French</div></div>
+      <div class="fact"><div class="label">Ideal Clients</div><div class="value">CASPs, banks, asset managers, RWA issuers, funds, DAOs</div></div>
+      <div class="fact"><div class="label">Supported Org Sizes</div><div class="value">Startup to Enterprise</div></div>
+      <div class="fact"><div class="label">Pricing Model</div><div class="value">Project / Subscription / Tailored</div></div>
+      <div class="fact"><div class="label">Implementation</div><div class="value">48h Flash Diagnostic · 2–6 weeks assessments · ongoing monitoring</div></div>
+    </div>
+
+    <h3 style="margin-top:54px">Core Capabilities</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Capability</th><th>What it delivers</th></tr></thead>
+        <tbody>
+          <tr><td>Deterministic control assessment</td><td>Systems, Structural, Institutional, Governance layers — same inputs always yield same result.</td></tr>
+          <tr><td>Risk Assessment + Data Room</td><td>4-pillar evaluation plus secure data room for due diligence or authorisation.</td></tr>
+          <tr><td>Governance Diagnostic</td><td>Smart contract, DAO, multisig and institutional governance evaluation.</td></tr>
+          <tr><td>Flash Diagnostic</td><td>One entity, one control, one framework — sealed board-ready report in 48h.</td></tr>
+          <tr><td>RWA Proof Chain</td><td>Evidence chain across issuance, NAV, collateral and transfer.</td></tr>
+          <tr><td>Smart Contract Birth Certificate</td><td>Sealed origin record of a deployed contract.</td></tr>
+          <tr><td>CASP Authorization Evidence Pack</td><td>Versioned and sealed MiCA / DORA authorisation file.</td></tr>
+          <tr><td>Verified Badge</td><td>Public proof page on the client site.</td></tr>
+          <tr><td>Enterprise Monitoring</td><td>Continuous proof across entities, jurisdictions and frameworks.</td></tr>
+          <tr><td>Remediation Tracker</td><td>Post-audit follow-up with re-test and time-stamped proof.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="margin-top:54px">Regulatory & Compliance Coverage</h3>
+    <p>TrustBlocks maps controls against the listed regimes but does not hold or claim a regulatory licence, legal advisory status, audit opinion or broker-dealer authorisation.</p>
+  </div>
+</section>
+
+<section id="contact" class="cta-final">
+  <div class="wrap">
+    <div class="eyebrow">Get In Touch</div>
+    <h2>Evidence, <span class="accent">not opinion.</span></h2>
+    <p class="lead">Built for CASPs, EMT issuers, banks and RWA issuers who need to prove their controls hold — continuously, and under challenge.</p>
+    <a class="maillink" href="mailto:trustenginia@gmail.com?subject=RWA%20Vendors%20%7C%20TrustBlocks%20enquiry">trustenginia@gmail.com →</a>
+    <br style="margin:12px 0;">
+    <a class="maillink" href="mailto:rajaona@trustaria.io?subject=RWA%20Vendors%20%7C%20TrustBlocks%20enquiry">rajaona@trustaria.io →</a>
+    <p style="margin-top:22px">Contact: Nirinasoa Rajaona, Founder · https://trustaria.io</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="disclaimer">
+      TrustBlocks / ARIA provides an independent, deterministic assessment of controls and their supporting evidence. It does not constitute legal advice, a legal opinion, a regulatory authorisation, a guarantee of compliance, or an audit opinion. TrustBlocks is not a law firm, an audit firm, a broker-dealer or a regulatory authority. Assessments are based on publicly available regulatory texts and information provided by the client. © 2026 TrustBlocks. All rights reserved.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
